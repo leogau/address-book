@@ -20,10 +20,11 @@
     (response/redirect "/")))
 
 (defn get-route [request]
-  (common-layout
-   (for [contact (query/all-contacts)]
-     (display-contact contact contact-id))
-   (add-contact-form)))
+  (let [contact-id (get-in request [:params :contact-id])]
+    (common-layout
+     (for [contact (query/all-contacts)]
+       (display-contact contact contact-id))
+     (add-contact-form))))
 
 (defn delete-route [request]
   (let [contact-id (get-in request [:params :contact-id])]
